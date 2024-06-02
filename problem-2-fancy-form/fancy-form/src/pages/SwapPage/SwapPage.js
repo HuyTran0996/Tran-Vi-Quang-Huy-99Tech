@@ -23,7 +23,8 @@ const tokenImages = importAll(
 );
 
 const SwapPage = () => {
-  const [amount, setAmount] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState("ETH");
   const [toCurrency, setToCurrency] = useState("USD");
   const [toAmount, setToAmount] = useState(0);
@@ -59,7 +60,19 @@ const SwapPage = () => {
     } else if (!fromCurrency || !toCurrency) {
       showToast("Please select both currencies.", "warn");
     } else {
-      showToast("Swapped successfully", "success");
+      const simulateSubmitting = async () => {
+        setIsSubmitting(true);
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+          showToast("Swapped successfully", "success");
+        } catch (err) {
+          showToast("Swapped fail", "error");
+        } finally {
+          setIsSubmitting(false);
+          setAmount("");
+        }
+      };
+      simulateSubmitting();
     }
   };
 
@@ -71,48 +84,50 @@ const SwapPage = () => {
   } else {
     return (
       <div className="SwapPage">
+        <h1 className="title">Swap Page</h1>
         <div className="container">
           <form onSubmit={handleSubmit}>
             <div className="part">
-              <h3>Amount:</h3>
-              <input
-                type="number"
-                placeholder="Enter amount..."
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-              />
-            </div>
-
-            <div className="part">
               <h3>From:</h3>
               <div className="currency-select">
-                {fromCurrency && (
-                  <img
-                    src={tokenImages[fromCurrency]}
-                    alt={fromCurrency}
-                    className="token-icon"
-                  />
-                )}
+                <div className="wrapper">
+                  <div className="selectAndIcon">
+                    {fromCurrency && (
+                      <img
+                        src={tokenImages[fromCurrency]}
+                        alt={fromCurrency}
+                        className="token-icon"
+                      />
+                    )}
 
-                <select
-                  value={fromCurrency}
-                  onChange={(e) => setFromCurrency(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Select currency
-                  </option>
-                  {dataDataAll.map((coin) => (
-                    <option key={coin.currency} value={coin.currency}>
-                      {coin.currency}
-                    </option>
-                  ))}
-                </select>
+                    <select
+                      value={fromCurrency}
+                      onChange={(e) => setFromCurrency(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        Select currency
+                      </option>
+                      {dataDataAll.map((coin) => (
+                        <option key={coin.currency} value={coin.currency}>
+                          {coin.currency}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <input
+                    type="number"
+                    placeholder="Enter amount..."
+                    value={amount}
+                    onChange={(e) => setAmount(Number(e.target.value))}
+                  />
+                </div>
               </div>
             </div>
             <div className="divider">
-              <div className="line1"></div>
+              <div className="line"></div>
               <MdCurrencyExchange size={30} />
-              <div className="line2"></div>
+              <div className="line"></div>
             </div>
             <div className="part">
               <h3>To:</h3>
@@ -141,12 +156,12 @@ const SwapPage = () => {
               </div>
             </div>
 
-            <div>
+            <div className="result">
               {`Result: ${amount} ${fromCurrency} = ${toAmount.toFixed(
                 6
               )} ${toCurrency} `}
             </div>
-            <div>
+            <div className="pool-price">
               Pool Price: 1 {fromCurrency} ={" "}
               {fromCurrency && toCurrency
                 ? (
@@ -158,7 +173,9 @@ const SwapPage = () => {
                 : 0}{" "}
               {toCurrency}
             </div>
-            <button type="submit">Perform Swap</button>
+            <button className="btn" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting" : "Perform Swap"}
+            </button>
           </form>
         </div>
       </div>
