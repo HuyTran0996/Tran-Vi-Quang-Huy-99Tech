@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { movieReducer } from "./slices/movieSlice";
-import { tvReducer } from "./slices/tvSlice";
+import { coinReducer } from "./slices/coinSlice";
 
 export const store = configureStore({
   reducer: {
-    movies: movieReducer,
-    tvs: tvReducer,
+    coins: coinReducer,
   },
 });
