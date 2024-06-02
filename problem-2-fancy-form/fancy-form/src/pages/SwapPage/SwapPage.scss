@@ -1,0 +1,48 @@
+.SwapPage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .container {
+    position: relative;
+    background-color: azure;
+    padding: 20px 20px;
+    border-radius: 15px;
+    .divider {
+      display: flex;
+      align-items: center;
+      .line1 {
+        width: 70%;
+        height: 1px;
+        background-color: #000;
+        margin-right: 5px;
+      }
+      .line2 {
+        width: 10%;
+        height: 1px;
+        background-color: #000;
+        margin-left: 5px;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      .part {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        h3 {
+          margin-right: 10px;
+        }
+        .currency-select {
+          display: flex;
+        }
+      }
+    }
+  }
+}
