@@ -86,7 +86,6 @@ const SwapPage = () => {
   }
   if (loadingError) {
     return <Error />;
-    return <p>Error loading data</p>;
   } else {
     return (
       <div className="SwapPage">
