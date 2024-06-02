@@ -55,10 +55,14 @@ const SwapPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (amount === 0) {
-      showToast("Enter the amount that you want to swap.", "warn");
-    } else if (!fromCurrency || !toCurrency) {
-      showToast("Please select both currencies.", "warn");
+
+    if (
+      !/^[\d]+$/.test(amount) ||
+      amount === 0 ||
+      !fromCurrency ||
+      !toCurrency
+    ) {
+      showToast("Please fill in all required fields correctly.", "warn");
     } else {
       const simulateSubmitting = async () => {
         setIsSubmitting(true);
@@ -66,7 +70,7 @@ const SwapPage = () => {
           await new Promise((resolve) => setTimeout(resolve, 5000));
           showToast("Swapped successfully", "success");
         } catch (err) {
-          showToast("Swapped fail", "error");
+          showToast("Swapped failed", "error");
         } finally {
           setIsSubmitting(false);
           setAmount("");

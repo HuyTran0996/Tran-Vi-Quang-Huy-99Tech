@@ -28,10 +28,15 @@
     background-color: azure;
     padding: 20px 20px;
     border-radius: 15px;
-
+    opacity: 0;
+    animation: slideTop 1s ease forwards;
+    animation-delay: 0.6s;
     .divider {
       display: flex;
       align-items: center;
+      opacity: 0;
+      animation: slideLeft 1s ease forwards;
+      animation-delay: 1.6s;
       .line {
         width: 50%;
         height: 1px;
@@ -43,6 +48,9 @@
     form {
       display: flex;
       flex-direction: column;
+      opacity: 0;
+      animation: slideRight 1s ease forwards;
+      animation-delay: 1.2s;
       .part {
         display: flex;
         align-items: center;
