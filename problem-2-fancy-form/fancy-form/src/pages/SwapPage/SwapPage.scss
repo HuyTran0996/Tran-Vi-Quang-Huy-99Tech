@@ -9,6 +9,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .token-icon {
+    height: 35px;
+  }
   .title {
     position: relative;
     font-size: 46px;
@@ -69,6 +72,7 @@
             height: 40px;
             border: 2px solid grey;
             border-radius: 25px;
+
             input {
               width: 100%;
               border: none;
@@ -87,7 +91,7 @@
             cursor: pointer;
             border: none;
             background: transparent;
-            width: 50px;
+            max-width: 100px;
           }
         }
       }

@@ -5,6 +5,7 @@ import "./SwapPage.scss";
 import { useThunk } from "../../hook/use-thunk";
 import { fetchDataAll } from "../../store/thunks/fetchCoins";
 import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 import { showToast } from "../../components/ToastMessage";
 
 import { MdCurrencyExchange } from "react-icons/md";
@@ -84,6 +85,7 @@ const SwapPage = () => {
     return <Loading />;
   }
   if (loadingError) {
+    return <Error />;
     return <p>Error loading data</p>;
   } else {
     return (
@@ -108,9 +110,6 @@ const SwapPage = () => {
                       value={fromCurrency}
                       onChange={(e) => setFromCurrency(e.target.value)}
                     >
-                      <option value="" disabled>
-                        Select currency
-                      </option>
                       {dataDataAll.map((coin) => (
                         <option key={coin.currency} value={coin.currency}>
                           {coin.currency}
@@ -148,9 +147,6 @@ const SwapPage = () => {
                   value={toCurrency}
                   onChange={(e) => setToCurrency(e.target.value)}
                 >
-                  <option value="" disabled>
-                    Select currency
-                  </option>
                   {dataDataAll.map((coin) => (
                     <option key={coin.currency} value={coin.currency}>
                       {coin.currency}
